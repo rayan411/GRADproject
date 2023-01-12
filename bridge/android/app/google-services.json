@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "985790255301",
+    "project_id": "bridge-6740a",
+    "storage_bucket": "bridge-6740a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985790255301:android:ef038d17f209d86eae20ac",
+        "android_client_info": {
+          "package_name": "com.example.bridge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "985790255301-3g8jqk111prrt2bkqfbcscdmkfk4ruor.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bridge",
+            "certificate_hash": "9868beb40dc0d4ba184c2acd5b293369599c1498"
+          }
+        },
+        {
+          "client_id": "985790255301-nb9v9kub82s5rs9479j665f88v2q29qv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpN7NsVzK_HJUjsKp3agEpz8-Lbv2I0Fw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "985790255301-nb9v9kub82s5rs9479j665f88v2q29qv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

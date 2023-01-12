@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-import '../../widgets/button_widget.dart';
+import '../../widgets/Colors/colors.dart';
+import '../../widgets/buttons/button_widget.dart';
 import 'login.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -21,28 +22,26 @@ class _RegisterPageState extends State<RegisterPage> {
         child: SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.blue[50],
         body: Padding(
             padding: const EdgeInsets.all(30.0),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                   const Image(image: AssetImage('images/logoHr.png'),),
                   Center(
-                    child: Container(
-                      
-                      alignment: Alignment.center,
-                      child: const Text(
-                        "Create account",
+                    child: Container(    
+                      child:  Text(
+                        " Sign up",
                         style: TextStyle(
-                          color: Color.fromARGB(255, 17, 88, 132),
-                          fontSize: 34,
+                          color:ColorSelect.Color2,
+                          fontSize: 54,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(
-                    height: 100,
+                    height: 24,
                   ),
                   const TextField(
                     obscureText: true,
@@ -66,41 +65,41 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(
                     height:8,
                   ),
+                  // const TextField(
+                  //   obscureText: true,
+                  //   decoration: InputDecoration(
+                  //       hintText: 'PHONE',
+                  //       border: OutlineInputBorder(),
+                  //       prefixIcon: Icon(
+                  //         Icons.phone_android,
+                  //       )),
+                  // ),
+                  // const SizedBox(
+                  //   height:8,
+                  // ),
+                  // const TextField(
+                  //   obscureText: true,
+                  //   decoration: InputDecoration(
+                  //       hintText: 'PASSWORD',
+                  //       border: OutlineInputBorder(),
+                  //       prefixIcon: Icon(
+                  //         Icons.lock_outline_rounded,
+                  //       )),
+                  // ),
+                  // const SizedBox(
+                  //   height: 8,
+                  // ),
                   const TextField(
                     obscureText: true,
                     decoration: InputDecoration(
-                        hintText: 'PHONE',
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          Icons.phone_android,
-                        )),
-                  ),
-                  const SizedBox(
-                    height:8,
-                  ),
-                  const TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        hintText: 'PASSWORD',
+                        hintText: ' PASSWORD',
                         border: OutlineInputBorder(),
                         prefixIcon: Icon(
                           Icons.lock_outline_rounded,
                         )),
                   ),
                   const SizedBox(
-                    height: 8,
-                  ),
-                  const TextField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        hintText: 'CONFIRM PASSWORD',
-                        border: OutlineInputBorder(),
-                        prefixIcon: Icon(
-                          Icons.lock_outline_rounded,
-                        )),
-                  ),
-                  const SizedBox(
-                    height: 20,
+                    height: 24,
                   ),
                   Mybutton1(
                     onPress: () {},

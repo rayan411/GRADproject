@@ -1,16 +1,17 @@
+import 'package:bridge/widgets/colors/colors.dart';
 import 'package:flutter/material.dart';
 import 'profilePage.dart';
 import 'explorePages.dart';
 import 'learnPage.dart';
 
-class BottomBar extends StatefulWidget {
-  const BottomBar({Key? key}) : super(key: key);
+class MyBottomBar extends StatefulWidget {
+  const MyBottomBar({Key? key}) : super(key: key);
 
   @override
-  State<BottomBar> createState() => _BottomBarState();
+  State<MyBottomBar> createState() => _MyBottomBarState();
 }
 
-class _BottomBarState extends State<BottomBar> {
+class _MyBottomBarState extends State<MyBottomBar> {
 //for navigaton par
   int _selectedIndex = 0;
 
@@ -26,10 +27,14 @@ class _BottomBarState extends State<BottomBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedIndex],
+      //Bottom Navigation Bar ------------------------------------------------------------------------------------------
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.lens_blur_sharp),
+            icon: Icon(
+              // Icons.lens_blur_sharp
+              Icons.grid_view,
+              ),
             label: 'Explore',
           ),
           BottomNavigationBarItem(
@@ -41,10 +46,12 @@ class _BottomBarState extends State<BottomBar> {
             label: 'Profile',
           ),
         ],
-        backgroundColor: Color.fromARGB(255, 1, 156, 234),
-        selectedItemColor: Colors.white,
+        backgroundColor: ColorSelect.Color1,
+        selectedItemColor:ColorSelect.Color5,
         currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        onTap: _onItemTapped,        
+        unselectedItemColor:  ColorSelect.Color3,
+
       ),
     );
   }
