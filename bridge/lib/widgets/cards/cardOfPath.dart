@@ -1,28 +1,31 @@
 import 'package:bridge/widgets/Colors/colors.dart';
 import 'package:flutter/material.dart';
 
-import 'custtomButton.dart';
+import '../Buttons/custtomButton.dart';
 
-class ButtonImage extends StatefulWidget {
-  final String? text;
+class Card_Of_Path extends StatefulWidget {
+  final String? id;
+  final String? name;
   final String? sourceImage;
   final String? description;
-  final String? enterName;
 
-  const ButtonImage(
+  const Card_Of_Path(
       {Key? key,
-      this.text,
+      required this.id,
+      required this.name,
       required this.sourceImage,
-      this.description,
-      this.enterName})
+      required this.description,
+      })
       : super(key: key);
 
   @override
-  State<ButtonImage> createState() => _ButtonImageState();
+  State<Card_Of_Path> createState() => _Card_Of_PathState();
 }
 
-class _ButtonImageState extends State<ButtonImage> {
+class _Card_Of_PathState extends State<Card_Of_Path> {
   bool isLoading = false;
+
+    bool showImage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +58,7 @@ class _ButtonImageState extends State<ButtonImage> {
                                         Padding(
                                           padding: EdgeInsets.all(8.0),
                                           child: Text(
-                                            widget.enterName ?? '',
+                                            widget.name ?? '',
                                             style: TextStyle(
                                                 color: ColorSelect.Color5,
                                                 fontWeight: FontWeight.bold,
@@ -132,7 +135,7 @@ class _ButtonImageState extends State<ButtonImage> {
                   height: 6,
                 ),
                 Text(
-                  widget.text ?? '',
+                  widget.name ?? '',
                   style: TextStyle(
                       color: ColorSelect.Color5, fontWeight: FontWeight.bold),
                 ),

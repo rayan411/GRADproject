@@ -1,8 +1,8 @@
 import 'package:bridge/pages/paths/front-end/html.dart';
 import 'package:bridge/widgets/colors/colors.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/Buttons/buttonOfPath.dart';
-import '../../widgets/Cards/headerPath.dart';
+import '../../../widgets/Buttons/buttonOfPath.dart';
+import '../../../widgets/Cards/headerPath.dart';
 
 class FrontEndPath extends StatelessWidget {
   const FrontEndPath({Key? key}) : super(key: key);
@@ -11,7 +11,6 @@ class FrontEndPath extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-    
         appBar: AppBar(
           backgroundColor: ColorBox.Color50,
           leading: InkWell(
@@ -44,12 +43,16 @@ class FrontEndPath extends StatelessWidget {
                   minHeight: 35.0,
                   maxHeight: 48,
                   maxWidth: 327,
-                  minWidth: 2 ,
+                  minWidth: 2,
                 ),
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [
-                     Icon(Icons.golf_course,size: 32, color:  ColorBox.Color50,),
+                    Icon(
+                      Icons.golf_course,
+                      size: 32,
+                      color: ColorBox.Color50,
+                    ),
                     ButtonOfPath(
                         enterText: "HTML",
                         onPress: () {
@@ -59,13 +62,58 @@ class FrontEndPath extends StatelessWidget {
                                 builder: (context) => const Html()),
                           );
                         }),
-                    Icon(Icons.keyboard_double_arrow_down ,size: 32, color:  ColorBox.Color50, ),
+                    Icon(
+                      Icons.keyboard_double_arrow_down,
+                      size: 32,
+                      color: ColorBox.Color50,
+                    ),
                     ButtonOfPath(enterText: "CSS", onPress: () {}),
-                    Icon(Icons.keyboard_double_arrow_down,size: 32, color:  ColorBox.Color50,),
+                    Icon(
+                      Icons.keyboard_double_arrow_down,
+                      size: 32,
+                      color: ColorBox.Color50,
+                    ),
                     ButtonOfPath(enterText: "JAVASCRIPT", onPress: () {}),
-                    Icon(Icons.keyboard_double_arrow_down,size: 32, color:  ColorBox.Color50,),
+                    Icon(
+                      Icons.keyboard_double_arrow_down,
+                      size: 32,
+                      color: ColorBox.Color50,
+                    ),
                     ButtonOfPath(enterText: "GIT", onPress: () {}),
-                   // Icon(Icons.arrow_downward,),
+                    Icon(
+                      Icons.keyboard_double_arrow_down,
+                      size: 32,
+                      color: ColorBox.Color50,
+                    ),
+
+                    //end----------------------------------------------
+                    Container(
+                      height: 48,
+                      width: 327,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                        color: ColorBox.Color50,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.bolt, color: ColorSelect.Color1,
+                            ),
+                            Text('Now, I am front end developer',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

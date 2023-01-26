@@ -1,4 +1,4 @@
-import 'package:bridge/pages/paths/front-end.dart';
+import 'package:bridge/pages/paths/front-end/front-end.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/Cards/smallCardOfpath.dart';

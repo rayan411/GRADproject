@@ -37,15 +37,11 @@ dependencies:
   google_fonts: ^3.0.1
   flutter_svg: ^1.1.6
   url_launcher: ^6.1.7  
-  http: ^0.13.0
-  shared_preferences: ^2.0.3
-  firebase_core: ^1.0.1
-  firebase_storage: ^8.0.0
-  cloud_firestore: ^1.0.1
-  firebase_messaging: ^9.0.0
-  firebase_auth: ^1.0.1
-  awesome_dialog: ^1.3.1
-  dropdown_search: ^0.4.8
+  cloud_firestore: ^4.3.1
+  firebase_auth: ^4.2.5
+  flutterfire_ui: ^0.4.3+20
+  provider: ^6.0.5
+  email_validator: ^2.1.17
 
 dev_dependencies:
   flutter_test:

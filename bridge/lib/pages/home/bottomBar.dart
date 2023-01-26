@@ -1,4 +1,6 @@
+import 'package:bridge/pages/loginPages/auth.dart';
 import 'package:bridge/widgets/colors/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'profilePage.dart';
 import 'explorePages.dart';
@@ -14,6 +16,8 @@ class MyBottomBar extends StatefulWidget {
 class _MyBottomBarState extends State<MyBottomBar> {
 //for navigaton par
   int _selectedIndex = 0;
+//keep logged in user 
+  final User? user = AuthPage().currentUser;
 
   void _onItemTapped(int index) {
     setState(() {
