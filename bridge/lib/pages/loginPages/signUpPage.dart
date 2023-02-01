@@ -37,79 +37,87 @@ class _SignUpPageState extends State<SignUpPage> {
       child: SingleChildScrollView(
         child: Padding(
             padding: const EdgeInsets.all(30.0),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-              const Image(
-                image: AssetImage('images/logoHr.png'),
-              ),
-              Center(
-                child: Text(
-                  " Sign up",
-                  style: TextStyle(
-                    color: ColorSelect.Color2,
-                    fontSize: 54,
-                    fontWeight: FontWeight.bold,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Image(
+                    image: AssetImage('images/logoHr.png'),
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              //NAME
-              TextField(
-                controller: controllerName,
-                decoration: const InputDecoration(
-                    labelText: 'NAME',
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(
-                      Icons.person,
-                    )),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              //email
-              TextFieldEmail(controllerEmail: controllerEmail),
-              const SizedBox(
-                height: 8,
-              ),
-              //password
-              TextfieldPassword(controllerPassword: controllerPassword),
-
-              const SizedBox(
-                height: 8,
-              ),
-              _errorMessage(),
-              const SizedBox(
-                height: 8,
-              ),
-              Mybutton1(
-                onPress: signUp,
-                text: "Sign Up",
-              ),
-              Container(
-                  padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
-                  child: Center(
-                      child: RichText(
-                    text: TextSpan(
-                      text: "Already have account? ",
+                  Center(
+                    child: Text(
+                      " Sign up",
                       style: TextStyle(
-                        color: ColorBox.Color50,
-                        fontSize: 15,
+                        color: ColorSelect.Color2,
+                        fontSize: 54,
+                        fontWeight: FontWeight.bold,
                       ),
-                      children: [
-                        TextSpan(
-                            text: "Sign in here",
-                            style: TextStyle(
-                                color: ColorSelect.Color2,
-                                fontWeight: FontWeight.bold),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = widget.onClickedSignIn),
-                      ],
                     ),
-                  )))
-            ])),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  //NAME
+                  TextField(
+                    controller: controllerName,
+                    decoration: const InputDecoration(
+                        labelText: 'NAME',
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 20,
+                        ),
+                        border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                        prefixIcon: Icon(
+                          Icons.person,
+                        )),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  //email
+                  TextFieldEmail(controllerEmail: controllerEmail),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  //password
+                  TextfieldPassword(controllerPassword: controllerPassword),
+
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  _errorMessage(),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Mybutton1(
+                    onPress: signUp,
+                    text: "Sign Up",
+                  ),
+                  Container(
+                      padding:
+                          const EdgeInsets.only(top: 40, left: 20, right: 20),
+                      child: Center(
+                          child: RichText(
+                        text: TextSpan(
+                          text: "Already have account? ",
+                          style: TextStyle(
+                            color: ColorBox.Color50,
+                            fontSize: 15,
+                          ),
+                          children: [
+                            TextSpan(
+                                text: "Sign in here",
+                                style: TextStyle(
+                                    color: ColorSelect.Color2,
+                                    fontWeight: FontWeight.bold),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = widget.onClickedSignIn),
+                          ],
+                        ),
+                      )))
+                ])),
       ),
     );
   }
@@ -123,9 +131,14 @@ class _SignUpPageState extends State<SignUpPage> {
               child: const CircularProgressIndicator(),
             ));
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: controllerEmail.text.trim(),
           password: controllerPassword.text.trim());
+      if (result != null) {
+        FirebaseFirestore.instance.collection('users').doc().set({
+          'name': controllerName.text.trim,
+        });
+      }
     } on FirebaseAuthException catch (e) {
       print(e);
       setState(() {
@@ -137,7 +150,7 @@ class _SignUpPageState extends State<SignUpPage> {
   //---------------------------------------------------------------------------
 
   //Cloud firebase(enter info)---------------------------------------------------------
-  Future creatUsers(UserClass user) async {
+  Future creatUsers(UserModel user) async {
     // Reference to documnt in firebase
     final docUser = FirebaseFirestore.instance.collection('users').doc();
     ///////////////////////////////////////////////////////////////////////////////////// final user =User(id: docUser.id,name: name, email: "", password: 12222);
@@ -148,12 +161,12 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 }
 
-class UserClass {
+class UserModel {
   String id;
   final String name;
   final String email;
   final int password;
-  UserClass({
+  UserModel({
     this.id = '',
     required this.name,
     required this.email,
@@ -161,5 +174,8 @@ class UserClass {
   });
 
   Map<String, dynamic> toJson() =>
-      {'id': id, 'name': name, 'email': email, 'password': password};
+      {'id': id,
+      'name': name,
+      'email': email,
+      'password': password};
 }

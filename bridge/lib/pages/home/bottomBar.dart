@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'profilePage.dart';
 import 'explorePages.dart';
 import 'learnPage.dart';
+import 'package:bridge/models/paths.dart';
 
 class MyBottomBar extends StatefulWidget {
-  const MyBottomBar({Key? key}) : super(key: key);
-
+ final List<Paths> favoritePath ;
+  
+  MyBottomBar(this.favoritePath);
   @override
   State<MyBottomBar> createState() => _MyBottomBarState();
 }
@@ -25,11 +27,16 @@ class _MyBottomBarState extends State<MyBottomBar> {
     });
   }
 
-  final List<Widget> _pages = const [ExplorePage(), LearnPage(), ProfilePage()];
-
+  late List<Widget> _pages; 
+@override
+  void initState() {
+    _pages=  [ExplorePage(), LearnPage(widget.favoritePath), ProfilePage()];
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     // appBar: AppBar(title: Text("UJ Bridge"),),
       body: _pages[_selectedIndex],
       //Bottom Navigation Bar ------------------------------------------------------------------------------------------
       bottomNavigationBar: BottomNavigationBar(
@@ -37,7 +44,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
           BottomNavigationBarItem(
             icon: Icon(
               // Icons.lens_blur_sharp
-              Icons.grid_view,
+              Icons.grid_view_sharp,
               ),
             label: 'Explore',
           ),
@@ -46,7 +53,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
             label: 'Learn',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline_outlined),
+            icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],

@@ -19,7 +19,12 @@ class TextFieldEmail extends StatelessWidget {
       textInputAction: TextInputAction.next,
       decoration: const InputDecoration(
           labelText: 'EMAIL',
-          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 16, horizontal: 20,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))
+          ),
           prefixIcon: Icon(Icons.email)),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (email) =>

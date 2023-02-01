@@ -19,15 +19,18 @@ class TextfieldPassword extends StatelessWidget {
       textInputAction: TextInputAction.done,
       decoration: const InputDecoration(
           labelText: 'PASSWORD',
-          border: OutlineInputBorder(),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 16,
+            horizontal: 20,
+          ),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
           prefixIcon: Icon(
             Icons.lock_outline_rounded,
           )),
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      validator: (value) => value != null && value.length < 6
-          ? 'Enter min. 6 Characcters'
-          : null,
+      validator: (value) =>
+          value != null && value.length < 6 ? 'Enter min. 6 Characcters' : null,
     );
   }
 }
-

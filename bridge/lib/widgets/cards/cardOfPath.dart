@@ -1,31 +1,31 @@
-import 'package:bridge/widgets/Colors/colors.dart';
+import 'package:bridge/main.dart';
+import 'package:bridge/widgets/colors/colors.dart';
 import 'package:flutter/material.dart';
-
+import '../../pages/paths/front-end/contents_Path.dart';
+import '../../pages/test/testEx.dart';
+import '../../pages/test/testFront.dart';
 import '../Buttons/custtomButton.dart';
 
-class Card_Of_Path extends StatefulWidget {
+class Card_Of_Path extends StatelessWidget {
   final String? id;
   final String? name;
   final String? sourceImage;
   final String? description;
 
-  const Card_Of_Path(
-      {Key? key,
-      required this.id,
-      required this.name,
-      required this.sourceImage,
-      required this.description,
-      })
-      : super(key: key);
-
-  @override
-  State<Card_Of_Path> createState() => _Card_Of_PathState();
-}
-
-class _Card_Of_PathState extends State<Card_Of_Path> {
-  bool isLoading = false;
-
-    bool showImage = false;
+  const Card_Of_Path({
+    this.id,
+    this.name,
+    this.sourceImage,
+    this.description,
+  });
+  void selectPath(BuildContext ctx) {
+    Navigator.of(ctx).pushNamed('/path-course', arguments: {
+      'id': id,
+      'name': name,
+      'description': description,
+      // 'pathId':id, 'name': name, 'path_Description': description,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,11 @@ class _Card_Of_PathState extends State<Card_Of_Path> {
       padding: const EdgeInsets.all(8.0),
       child: Material(
         color: ColorSelect.Color1,
+        borderRadius: BorderRadius.circular(20),
         elevation: 8,
         child: InkWell(
+            // borderRadius: BorderRadius.circular(10),
+            // splashColor: Theme.of(context).primaryColor,
             onTap: () {
               showBottomSheet(
                   context: context,
@@ -51,19 +54,36 @@ class _Card_Of_PathState extends State<Card_Of_Path> {
                               child: Column(
                                 children: [
                                   Container(
+                                    padding: EdgeInsets.all(8),
                                     color: ColorSelect.Color1,
                                     height: 100,
-                                    child: Row(
+                                    child: Column(
                                       children: [
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0),
-                                          child: Text(
-                                            widget.name ?? '',
-                                            style: TextStyle(
-                                                color: ColorSelect.Color5,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 24),
-                                          ),
+                                        Align(
+                                          alignment: Alignment.bottomRight,
+                                          child: InkWell(
+                                              onTap: () =>
+                                                  Navigator.pop(context),
+                                              child: Icon(
+                                                Icons.close_rounded,
+                                                size: 24,
+                                              )),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Text(
+                                                name ?? '',
+                                                style: TextStyle(
+                                                    color: ColorSelect.Color5,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 24),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -75,7 +95,7 @@ class _Card_Of_PathState extends State<Card_Of_Path> {
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
                                       alignment: Alignment.centerLeft,
-//Structure of Buttom Sheet Part 2  ------------------------------------------------------------------------------------------------------
+                                      //Structure of Buttom Sheet Part 2  ------------------------------------------------------------------------------------------------------
                                       child: Column(
                                         children: const [
                                           Text("Description :",
@@ -90,34 +110,24 @@ class _Card_Of_PathState extends State<Card_Of_Path> {
                                     child: Container(
                                       alignment: Alignment.centerLeft,
                                       child: Text(
-                                          widget.description ??
+                                          description ??
                                               "  A front-end developer architects and develops websites and applications using web technologies (i.e., HTML, CSS, DOM, and JavaScript), which run on the Open Web",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.normal)),
                                     ),
                                   ),
                                   const SizedBox(height: 8),
-//Structure of Buttom Sheet Part 3 (Buttons)  ------------------------------------------------------------------------------------------------------22
+                                  //Structure of Buttom Sheet Part 3 (Buttons)  ------------------------------------------------------------------------------------------------------22
                                   CusttomButton(
                                     text: 'Join now',
-                                    onPress: () {
-                                      setState(() {
-                                        isLoading = true;
-                                      });
-                                      Future.delayed(const Duration(seconds: 3),
-                                          () {
-                                        setState(() {
-                                          isLoading = false;
-                                        });
-                                      });
-                                    },
+                                    onPress: () => selectPath(context),
                                   ),
                                 ],
                               ),
                             ),
                           ),
                         )
-//End Structure of Buttom Sheet  ------------------------------------------------------------------------------------------------------22
+                        //End Structure of Buttom Sheet  ------------------------------------------------------------------------------------------------------22
 
                         );
                   });
@@ -125,22 +135,52 @@ class _Card_Of_PathState extends State<Card_Of_Path> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Ink.image(
-                  image: AssetImage(widget.sourceImage ?? ''),
-                  height: 200,
-                  width: 400,
-                  fit: BoxFit.cover,
-                ),
-                const SizedBox(
-                  height: 6,
-                ),
-                Text(
-                  widget.name ?? '',
-                  style: TextStyle(
-                      color: ColorSelect.Color5, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 6,
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  elevation: 24,
+                  margin: EdgeInsets.all(0),
+                  child: Stack(children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(15),
+                      child: Image(
+                        image: AssetImage(sourceImage ?? ''),
+                        height: 200,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    Container(
+                      height: 200,
+                      alignment: Alignment.bottomLeft,
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              ColorBox.Color50.withOpacity(0.05),
+                              ColorBox.Color30.withOpacity(0.95),
+                            ],
+                            stops: [
+                              0.6,
+                              0.8
+                            ]),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+
+                      // width: 400,
+                      child: Text(
+                        name ?? '',
+                        overflow: TextOverflow.fade,
+                        style: TextStyle(
+                            color: ColorSelect.Color5,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24),
+                      ),
+                    )
+                  ]),
                 ),
               ],
             )),

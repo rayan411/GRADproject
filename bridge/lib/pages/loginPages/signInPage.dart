@@ -73,8 +73,8 @@ class _SignInPageState extends State<SignInPage> {
                   ),
 
                   const SizedBox(
-                    height: 60,
-                    width: 10,
+                    height: 50,
+                    //width: 10,
                   ),
 
                   // Textfields for username and password fields----------------------------------------------------------

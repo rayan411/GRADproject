@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Buttons/buttonOfPath.dart';
-import 'Cards/headerPath.dart';
+import '../Buttons/buttonOfPath.dart';
+import '../Cards/headerPath.dart';
 
 class MyWidget extends StatelessWidget {
   const MyWidget({Key? key}) : super(key: key);
@@ -24,24 +24,24 @@ class MyWidget extends StatelessWidget {
             const SizedBox(
               height: 32,
             ),
-            ButtonOfPath(
-              enterText: "HTML",
-              onPress: (){}
-            ),
-             const SizedBox(
-              height: 8,
-            ),
-            ButtonOfPath(
-              enterText: "CSS",
-              onPress: (){}
-            ),
-             const SizedBox(
-              height: 8,
-            ),
-            ButtonOfPath(
-              enterText: "JAVASCRIPT",
-              onPress: (){}
-            )
+            // ButtonOfPath(
+            //   enterText: "HTML",
+            //   onPress: (){}
+            // ),
+            //  const SizedBox(
+            //   height: 8,
+            // ),
+            // ButtonOfPath(
+            //   enterText: "CSS",
+            //   onPress: (){}
+            // ),
+            //  const SizedBox(
+            //   height: 8,
+            // ),
+            // ButtonOfPath(
+            //   enterText: "JAVASCRIPT",
+            //   onPress: (){}
+            // )
           ],
         ),
       ),

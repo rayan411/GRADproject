@@ -1,18 +1,25 @@
-import 'package:bridge/pages/paths/front-end/front-end.dart';
+import 'package:bridge/app_data.dart';
+import 'package:bridge/pages/home/explorePages.dart';
+import 'package:bridge/pages/paths/front-end/contents_Path.dart';
+import 'package:bridge/widgets/cards/cardOfPath.dart';
 import 'package:flutter/material.dart';
-
 import '../../widgets/Cards/smallCardOfpath.dart';
+import 'package:bridge/models/paths.dart';
 
-class LearnPage extends StatefulWidget {
-  const LearnPage({Key? key}) : super(key: key);
+import '../../widgets/cards/cardLearn.dart';
 
-  @override
-  State<LearnPage> createState() => _LearnPageState();
-}
+class LearnPage extends StatelessWidget {
+  // final String pathId;
+  // final String namePath;
+  // final String imageSource;
+ final List<Paths> favoritePath ;
+  
+  LearnPage(this.favoritePath);
 
-class _LearnPageState extends State<LearnPage> {
   @override
   Widget build(BuildContext context) {
+  if(favoritePath.isEmpty){
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -23,39 +30,75 @@ class _LearnPageState extends State<LearnPage> {
               fontWeight: FontWeight.bold),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: [
-            SmallCardLearn(
-                enterName: "Front End Devloper",
-                onPress: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const FrontEndPath()),
-                  );
-                }),
-            const SizedBox(
-              height: 8,
-            ),
-            SmallCardLearn(
-              enterName: "UX Researcher",
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            SmallCardLearn(enterName: "java devloper"),
-            const SizedBox(
-              height: 8,
-            ),
-            SmallCardLearn(),
-            const SizedBox(
-              height: 8,
-            ),
-          ],
+      body: const Padding(
+        padding: EdgeInsets.all(8.0),
+         child: Center(
+           child: Text(
+            'Dont have any path',
+            style: TextStyle(
+                color: Color.fromARGB(255, 0, 84, 123),
+                fontWeight: FontWeight.bold),
         ),
-      ),
+         ), 
+         ),
     );
+  } 
+  else {
+    return Scaffold(appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Learn Page',
+          style: TextStyle(
+              color: Color.fromARGB(255, 0, 84, 123),
+              fontWeight: FontWeight.bold),
+        ),
+        
+      ),
+      body:   ListView.builder(
+              itemCount: favoritePath.length,
+              itemBuilder: ( ctx , index) 
+              {
+                return Card_inLearn(
+                  id: favoritePath[index].id,
+                  name: favoritePath[index].name,
+                  description: favoritePath[index].description,
+                  sourceImage: favoritePath[index].sourceImage,
+                );
+              },
+      
+      )
+      );
+  }
   }
 }
+        // child: ListView(
+        //   children: [
+        //     SmallCardLearn(
+        //         enterName: "Front End Devloper",
+        //         onPress: () {
+        //           Navigator.push(
+        //             context,
+        //             MaterialPageRoute(
+        //                 builder: (context) =>   ExplorePage()),
+        //           );
+        //         }),
+        //     const SizedBox(
+        //       height: 8,
+        //     ),
+        //     SmallCardLearn(
+        //       sourceImage: "",
+        //       enterName: "UX Researcher",
+        //     ),
+        //     const SizedBox(
+        //       height: 8,
+        //     ),
+        //     SmallCardLearn(enterName: "java devloper"),
+        //     const SizedBox(
+        //       height: 8,
+        //     ),
+        //     SmallCardLearn(),
+        //     const SizedBox(
+        //       height: 8,
+        //     ),
+        //   ],
+        // ),

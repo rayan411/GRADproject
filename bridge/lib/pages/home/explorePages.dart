@@ -19,9 +19,9 @@ class _ExplorePageState extends State<ExplorePage> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      backgroundColor: Color.fromARGB(255, 224, 243, 255),
+      //backgroundColor: Color.fromARGB(255, 46, 47, 48),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+       backgroundColor: Colors.white,
         title: Text(
           'Explore Page',
           style:
@@ -31,7 +31,7 @@ class _ExplorePageState extends State<ExplorePage> {
       body: Center(
           // add listof viwe with builder-----------------------------------------------------------------------
           child: ListView(
-        children: Paths_data.map((pathsData) => Card_Of_Path(
+          children: Paths_data.map((pathsData) => Card_Of_Path(
               name: pathsData.name,
               sourceImage: pathsData.sourceImage,
               description: pathsData.description,
