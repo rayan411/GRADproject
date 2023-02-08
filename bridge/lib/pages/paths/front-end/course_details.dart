@@ -1,13 +1,13 @@
-import 'package:bridge/app_data.dart';
+import 'package:bridge/appData/app_data.dart';
+import 'package:bridge/models/courses.dart';
 import 'package:bridge/pages/paths/front-end/contents_Path.dart';
 import 'package:bridge/widgets/Buttons/hyperlinkButton.dart';
 import 'package:bridge/widgets/Colors/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/link.dart';
-import 'package:flutter/services.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../../widgets/Buttons/buttonOfPath.dart';
 import '../../../widgets/Cards/headerOfContent.dart';
+import 'package:bridge/models/courses.dart';
 
 class Course_details extends StatefulWidget {
   //screenRoute------------------------------
@@ -28,10 +28,22 @@ class _Course_detailsState extends State<Course_details> {
   @override
   Widget build(BuildContext context) {
   //varible to get data-------------------------------------
-    final pathId= 
-        ModalRoute.of(context)!.settings.arguments as  String;
-    final selectedCourse = 
-      Course_data.firstWhere(((course) =>course.id == pathId));//true or false for check
+    // final pathId= 
+    //     ModalRoute.of(context)!.settings.arguments as Map<String, String?>;
+    // final selectedCourse = 
+    //   subCourse_data.firstWhere(((subCourse_data) =>subCourse_data.id == pathId));  //true or false for check
+    // final  = routeArgument['id'];
+
+     final routeArgument =
+        ModalRoute.of(context)!.settings.arguments as Map<String, String?>;
+
+    final courseID = routeArgument['id'];
+    final name = routeArgument['name'];
+    final description = routeArgument['description'];
+    final link = routeArgument['link'];
+    final filterdSubCourse = Provider.of<AppData>(context).subCourse_data.where((course) {
+      return course.Course.contains(courseID);
+    }).toList();
 
     return Scaffold(
       //bottom-Bar------------------------------------
@@ -81,8 +93,8 @@ class _Course_detailsState extends State<Course_details> {
         //Header-------------------------------------------------------
 
          HeaderOfContent(
-            nameOfContent: selectedCourse.name,
-            DescriptioContent:selectedCourse.description
+            nameOfContent: name,
+            DescriptioContent:description
                 ),
 
         //center-------------------------------------------------------
@@ -113,15 +125,17 @@ class _Course_detailsState extends State<Course_details> {
                 ),
                 child: 
                 ListView.builder(
-              itemCount:selectedCourse.links.length,
+              itemCount:filterdSubCourse.length,
               itemBuilder: ( ctx , index) 
               {
                 return Link(
             target: LinkTarget.blank,
-            uri: Uri.parse(selectedCourse.links[index]),
+            uri: Uri.parse(filterdSubCourse[index].link),
             builder: (context, follwlink) => hyperlinkbutton (
-                  enterText: "codecademy",
+                  name: filterdSubCourse[index].name,
                   onPress: follwlink,
+                  id:filterdSubCourse[index].id ,
+                  link: filterdSubCourse[index].link,
                 )
                 );
               },

@@ -1,6 +1,7 @@
 import 'package:bridge/widgets/Colors/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:bridge/app_data.dart';
+import 'package:bridge/appData/app_data.dart';
+import 'package:provider/provider.dart';
 
 import '../../pages/paths/front-end/course_details.dart';
 
@@ -8,10 +9,10 @@ class ButtonOfPath extends StatefulWidget {
   final String? id;
   final String? name;
   final String? description;
+  late bool isDone ;
   final Function()? onPress;
-  
 
-  const ButtonOfPath({Key? key, required this.name, this.onPress, this.description, this.id})
+   ButtonOfPath({Key? key, required this.name, this.onPress, this.description, this.id,required this.isDone, })
       : super(key: key);
 
   @override
@@ -19,24 +20,24 @@ class ButtonOfPath extends StatefulWidget {
 }
 
 class _ButtonOfPathState extends State<ButtonOfPath> {
-  bool _active = true;
-  
-  void _handleTap() {
+  void doneCourse() {
     setState(() {
-      _active = !_active;
+      
+    widget.isDone=!widget.isDone;
     });
   }
-  void selctCourse(BuildContext context){
-    Navigator.of(context).pushNamed(
-       Course_details.screenRoute,
-       arguments: widget.id); 
-  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       // root-------------------------------------------------------
       onTap:()=> { Navigator.of(context).pushNamed(
-       Course_details.screenRoute,arguments: widget.id
+       Course_details.screenRoute,
+       arguments:  {
+        'id': widget.id,
+      'name': widget.name,
+      'description': widget.description,
+       }
       )},
       child: Column(
         children: [
@@ -47,7 +48,7 @@ class _ButtonOfPathState extends State<ButtonOfPath> {
               borderRadius: BorderRadius.all(
                 Radius.circular(8),
               ),
-              color: _active ? ColorSelect.Color1: ColorBox.Color50,
+              color: widget.isDone ? ColorBox.Color50: ColorSelect.Color1,
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -56,21 +57,21 @@ class _ButtonOfPathState extends State<ButtonOfPath> {
                 children: [
                   Icon(
                     Icons.flag,
-                    color: _active ? ColorBox.Color50: ColorSelect.Color1,
+                    color: widget.isDone ? ColorSelect.Color1: ColorBox.Color50,
                   ),
 
                   // Name of path----------------------------------------------------------
                   Text(widget.name ?? 'HTML',
                       style: TextStyle(
                         fontSize: 16,
-                        decoration:_active? TextDecoration.none:TextDecoration.lineThrough ,
+                        decoration:widget.isDone? TextDecoration.lineThrough:TextDecoration.none ,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                       )),
                   InkWell(
-                    onTap: _handleTap,
+                    onTap:doneCourse,
                     child: Icon(
-                      _active ? Icons.circle : Icons.check_circle,
+                      widget.isDone ? Icons.check_circle : Icons.circle,
                       size: 24,
                       color: Color.fromARGB(255, 247, 250, 252),
                     ),

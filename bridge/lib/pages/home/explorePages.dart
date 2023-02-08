@@ -1,19 +1,11 @@
 import 'package:bridge/widgets/cards/cardOfPath.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/Colors/colors.dart';
-import 'package:bridge/app_data.dart';
+import 'package:bridge/appData/app_data.dart';
+import 'package:provider/provider.dart';
 
-class ExplorePage extends StatefulWidget {
-  const ExplorePage({Key? key}) : super(key: key);
-
-  @override
-  State<ExplorePage> createState() => _ExplorePageState();
-}
-
-class _ExplorePageState extends State<ExplorePage> {
-//------------------------------------------------------------
-  bool isLoading = false;
-//------------------------------------------------------------
+class ExplorePage extends StatelessWidget {
+  const ExplorePage();
 
   @override
   Widget build(BuildContext context) {
@@ -21,52 +13,27 @@ class _ExplorePageState extends State<ExplorePage> {
         child: Scaffold(
       //backgroundColor: Color.fromARGB(255, 46, 47, 48),
       appBar: AppBar(
-       backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         title: Text(
-          'Explore Page',
+          'What do you wnat learn today?',
           style:
-              TextStyle(color: ColorBox.Color50, fontWeight: FontWeight.bold),
+              TextStyle(color: ColorBox.Color30, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, fontSize: 24),
         ),
       ),
       body: Center(
           // add listof viwe with builder-----------------------------------------------------------------------
-          child: ListView(
-          children: Paths_data.map((pathsData) => Card_Of_Path(
-              name: pathsData.name,
-              sourceImage: pathsData.sourceImage,
-              description: pathsData.description,
-              id: pathsData.id,
-            )).toList(),
+          child: Consumer<AppData>(
+        builder: ((context, appData, child) {
+          return ListView(
+            children: appData.Paths_data.map((pathsData) => Card_Of_Path(
+                  name: pathsData.name,
+                  sourceImage: pathsData.sourceImage,
+                  description: pathsData.description,
+                  id: pathsData.id,
+                )).toList(),
+          );
+        }),
       )),
     ));
   }
 }
-
-        // children: const [
-        //   Card_Of_Path(
-        //     sourceImage:"images/frontend.jpg",
-        //     text: "Front-End devloper",
-        //     description: "Front-End devloper are very simple to end ...........",
-            
-           
-        //   ), 
-        //   Card_Of_Path(
-        //     sourceImage: "images/UXResearcher.jpg",
-        //     text: "UX Researcher",
-        //     description: 'eeeeeeeeeeeeeeeeeeeee',
-        //   ),
-        //  Card_Of_Path(
-        //     sourceImage: "images/frontend.jpg",
-        //     text: "Java Developer",
-
-        //    )//,Card_Of_Path(
-        //   //   sourceImage: "images/frontend.jpg",
-        //   //   text: "Front-End devloper",
-        //   // ),Card_Of_Path(
-        //   //   sourceImage: "images/frontend.jpg",
-        //   //   text: "Front-End devloper",
-        //   // ),Card_Of_Path(
-        //   //   sourceImage: "images/frontend.jpg",
-        //   //   text: "Front-End devloper",
-        //   // ),
-        // ]),

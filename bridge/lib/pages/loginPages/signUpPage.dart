@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
+import '../../models/users.dart';
+import '../../services/user_Services.dart';
 import '../../widgets/Colors/colors.dart';
 import '../../widgets/buttons/button_widget.dart';
 
@@ -128,54 +130,51 @@ class _SignUpPageState extends State<SignUpPage> {
         context: context,
         barrierDismissible: false,
         builder: (context) => const Center(
-              child: const CircularProgressIndicator(),
+              child: CircularProgressIndicator(),
             ));
     try {
       var result = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: controllerEmail.text.trim(),
           password: controllerPassword.text.trim());
-      if (result != null) {
-        FirebaseFirestore.instance.collection('users').doc().set({
-          'name': controllerName.text.trim,
-        });
-      }
+      //=------------------------------------
+    // var name = FirebaseAuth.instance.currentUser!.displayName;
+    // name=controllerName.text.trim();
+    var mo = await FirebaseAuth.instance.currentUser!.updateDisplayName(controllerName.text.trim());
+
+
+      //var displayname=FirebaseAuth.instance.currentUser!.updateDisplayName(displayName:controllerName);
+      creatUsers(UserModel(
+          email: controllerEmail.text.trim(),
+          password: controllerPassword.text.trim(),
+          name: controllerName.text.trim()));
     } on FirebaseAuthException catch (e) {
-      print(e);
+      print('THIS IS ERRRRRRRRORE$e');
       setState(() {
         errorMessage = e.message;
       });
     }
+
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
   //---------------------------------------------------------------------------
 
-  //Cloud firebase(enter info)---------------------------------------------------------
-  Future creatUsers(UserModel user) async {
-    // Reference to documnt in firebase
-    final docUser = FirebaseFirestore.instance.collection('users').doc();
-    ///////////////////////////////////////////////////////////////////////////////////// final user =User(id: docUser.id,name: name, email: "", password: 12222);
-    user.id = docUser.id;
-    final json = user.toJson();
-    //creat document and writer data to firebase
-    await docUser.set(json);
-  }
 }
 
-class UserModel {
-  String id;
-  final String name;
-  final String email;
-  final int password;
-  UserModel({
-    this.id = '',
-    required this.name,
-    required this.email,
-    required this.password,
-  });
+// class UserModel {
+//   String id;
+//   final String name;
+//   final String email;
+//   final String password;
+//   UserModel({
+//     this.id = '',
+//     required this.name,
+//     required this.email,
+//     required this.password,
+//   });
 
-  Map<String, dynamic> toJson() =>
-      {'id': id,
-      'name': name,
-      'email': email,
-      'password': password};
-}
+//   Map<String, dynamic> toJson() =>
+//       {'id': id,
+//       'name': name,
+//       'email': email,
+//       'password': password};
+// }

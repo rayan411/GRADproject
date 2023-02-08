@@ -8,9 +8,9 @@ import 'learnPage.dart';
 import 'package:bridge/models/paths.dart';
 
 class MyBottomBar extends StatefulWidget {
- final List<Paths> favoritePath ;
+
   
-  MyBottomBar(this.favoritePath);
+  MyBottomBar();
   @override
   State<MyBottomBar> createState() => _MyBottomBarState();
 }
@@ -30,7 +30,7 @@ class _MyBottomBarState extends State<MyBottomBar> {
   late List<Widget> _pages; 
 @override
   void initState() {
-    _pages=  [ExplorePage(), LearnPage(widget.favoritePath), ProfilePage()];
+    _pages=  [ExplorePage(), LearnPage(), ProfilePage()];
     super.initState();
   }
   @override

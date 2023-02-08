@@ -1,10 +1,7 @@
 import 'package:bridge/main.dart';
 import 'package:bridge/widgets/colors/colors.dart';
 import 'package:flutter/material.dart';
-import '../../pages/paths/front-end/contents_Path.dart';
-import '../../pages/test/testEx.dart';
-import '../../pages/test/testFront.dart';
-import '../Buttons/custtomButton.dart';
+
 
 class Card_inLearn extends StatelessWidget {
   final String? id;
@@ -12,7 +9,18 @@ class Card_inLearn extends StatelessWidget {
   final String? sourceImage;
   final String? description;
 
-  const Card_inLearn({
+  // final Function mangeFavorite;
+  // final Function isFavorite;
+
+  // final Function _mangeComplete;
+  // final Function _ismComplete;
+
+  const Card_inLearn(
+    // this.mangeFavorite,
+    // this.isFavorite,
+    // this._mangeComplete,
+    // this._ismComplete, 
+    {
     this.id,
     this.name,
     this.sourceImage,
@@ -23,41 +31,46 @@ class Card_inLearn extends StatelessWidget {
       'id': id,
       'name': name,
       'description': description,
+
       // 'pathId':id, 'name': name, 'path_Description': description,
     });
   }
- 
+
+  
+
   @override
   Widget build(BuildContext context) {
     //show dialog when click deletae
     Future<void> _showMyDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Remove item from Learn.'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: const <Widget>[
-                Text('Would you like to remove this path ?'),
-              ],
+      return showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Remove item from Learn.'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('Would you like to remove this path ?'),
+                ],
+              ),
             ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, 'OK'),
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Cancel'),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () =>
+                    Navigator.pop(context, 'OK'), // mangeFavorite(id) ,
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Material(
@@ -103,7 +116,7 @@ class Card_inLearn extends StatelessWidget {
                           ]),
                       borderRadius: BorderRadius.circular(15),
                     ),
-            
+
                     // width: 400,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,7 +130,8 @@ class Card_inLearn extends StatelessWidget {
                               fontSize: 24),
                         ),
                         //Icon(Icons.delete, color: Colors.white,),
-                        InkWell(onTap: _showMyDialog, child: Icon(Icons.delete,color: Colors.white,))
+                        //    InkWell(onTap: _showMyDialog, child: Icon(Icons.delete,color: Colors.white,)),
+                        //  InkWell(onTap: _showMyDialog, child: Icon(Icons.delete,color: Colors.white,)),
                       ],
                     ),
                   )

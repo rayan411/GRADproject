@@ -11,21 +11,21 @@ class CusttomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 7.0,
-      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+    return Container(
+    padding: const EdgeInsets.all(8.0),
+        alignment: Alignment.bottomCenter, 
       child: InkWell(
-        borderRadius: BorderRadius.circular(8),
         splashColor: Theme.of(context).primaryColor,
         onTap: onPress,
         child: Ink(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [ColorSelect.Color1, ColorSelect.Color3]),
-            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+            color: ColorSelect.Color1,
+            // gradient: LinearGradient(
+            //     colors: [ColorSelect.Color1]),
+           borderRadius: BorderRadius.all(Radius.circular(14.0)),
           ),
-          height: 32,
-          width: 200,
+          height: 40,
+          width: 320,
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [

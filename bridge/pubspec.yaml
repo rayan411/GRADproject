@@ -67,6 +67,10 @@ flutter:
     - images/logoHr.png
     - images/front2.png
     - images/hot-air-balloon.png
+    - images/user.png
+    - images/achievement.png
+    - images/achive.png
+    - images/cardAchiv.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
