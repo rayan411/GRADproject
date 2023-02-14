@@ -1,14 +1,13 @@
 import 'package:bridge/widgets/textField/forEmail.dart';
 import 'package:bridge/widgets/textField/forPassword.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../main.dart';
 import '../../models/users.dart';
 import '../../services/user_Services.dart';
+import '../../widgets/Buttons/Mybutton.dart';
 import '../../widgets/Colors/colors.dart';
-import '../../widgets/buttons/button_widget.dart';
 
 class SignUpPage extends StatefulWidget {
   final Function() onClickedSignIn;
@@ -25,42 +24,91 @@ class _SignUpPageState extends State<SignUpPage> {
   final controllerPassword = TextEditingController();
   String? errorMessage = '';
 
-  // ----------------- void errore massage----------------------------------------
+  // ----------------- void= errore massage----------------------------------------
   Widget _errorMessage() {
     return Text(
       errorMessage == '' ? '' : 'Error! $errorMessage',
       style: const TextStyle(color: Colors.red),
     );
   }
-
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Image(
-                    image: AssetImage('images/logoHr.png'),
-                  ),
-                  Center(
-                    child: Text(
-                      " Sign up",
-                      style: TextStyle(
-                        color: ColorSelect.Color2,
-                        fontSize: 54,
-                        fontWeight: FontWeight.bold,
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Padding(
+            // ---------------------------------------- start page ----------------------------------------
+              padding: const EdgeInsets.all(30.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Image(
+                      image: AssetImage('images/logoHr.png'),
+                    ),
+                    Center(
+                      child: Text(
+                        " Sign up",
+                        style: TextStyle(
+                          color: ColorSelect.Color2,
+                          fontSize: 54,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  //NAME
-                  TextField(
+                    const SizedBox(
+                      height: 50,
+                    ),
+                  // ---------------------------------------- Text fields----------------------------------------
+                    //NAME
+                    TextFieldName(),
+                    const SizedBox(height: 8,),
+                    //email
+                    TextFieldEmail(controllerEmail: controllerEmail),
+                    const SizedBox(height:8,),
+                    //password
+                    TextfieldPassword(controllerPassword: controllerPassword),
+                    const SizedBox( height:8,),
+                    _errorMessage(),
+                    const SizedBox( height:24,),
+                    // button for sign up
+                    Mybutton(
+                      onPress: signUp,
+                      text: "Sign Up",
+                    ),
+                  ])),
+        ),
+      ),
+      bottomNavigationBar: bottomTextBar(),
+    );
+  }
+
+  Container bottomTextBar() {
+    return Container(
+        height: 80,
+        padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
+        child: Center(
+            child: RichText(
+          text: TextSpan(
+            text: "Already have account? ",
+            style: TextStyle(
+              color: ColorBox.Color50.withOpacity(0.5),
+              fontSize: 16,
+            ),
+            children: [
+              TextSpan(
+                  text: "Sign in here",
+                  style: TextStyle(
+                      color: ColorSelect.Color1, fontWeight: FontWeight.bold),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = widget.onClickedSignIn),
+            ],
+          ),
+        )));
+  }
+
+  TextField TextFieldName() {
+    return TextField(
                     controller: controllerName,
                     decoration: const InputDecoration(
                         labelText: 'NAME',
@@ -74,54 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         prefixIcon: Icon(
                           Icons.person,
                         )),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  //email
-                  TextFieldEmail(controllerEmail: controllerEmail),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  //password
-                  TextfieldPassword(controllerPassword: controllerPassword),
-
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  _errorMessage(),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Mybutton1(
-                    onPress: signUp,
-                    text: "Sign Up",
-                  ),
-                  Container(
-                      padding:
-                          const EdgeInsets.only(top: 40, left: 20, right: 20),
-                      child: Center(
-                          child: RichText(
-                        text: TextSpan(
-                          text: "Already have account? ",
-                          style: TextStyle(
-                            color: ColorBox.Color50,
-                            fontSize: 15,
-                          ),
-                          children: [
-                            TextSpan(
-                                text: "Sign in here",
-                                style: TextStyle(
-                                    color: ColorSelect.Color2,
-                                    fontWeight: FontWeight.bold),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = widget.onClickedSignIn),
-                          ],
-                        ),
-                      )))
-                ])),
-      ),
-    );
+                  );
   }
 
   //link sign up with firebase ---------------------------------------------------------------------------
@@ -137,10 +138,10 @@ class _SignUpPageState extends State<SignUpPage> {
           email: controllerEmail.text.trim(),
           password: controllerPassword.text.trim());
       //=------------------------------------
-    // var name = FirebaseAuth.instance.currentUser!.displayName;
-    // name=controllerName.text.trim();
-    var mo = await FirebaseAuth.instance.currentUser!.updateDisplayName(controllerName.text.trim());
-
+      // var name = FirebaseAuth.instance.currentUser!.displayName;
+      // name=controllerName.text.trim();
+      var mo = await FirebaseAuth.instance.currentUser!
+          .updateDisplayName(controllerName.text.trim());
 
       //var displayname=FirebaseAuth.instance.currentUser!.updateDisplayName(displayName:controllerName);
       creatUsers(UserModel(
@@ -160,21 +161,3 @@ class _SignUpPageState extends State<SignUpPage> {
 
 }
 
-// class UserModel {
-//   String id;
-//   final String name;
-//   final String email;
-//   final String password;
-//   UserModel({
-//     this.id = '',
-//     required this.name,
-//     required this.email,
-//     required this.password,
-//   });
-
-//   Map<String, dynamic> toJson() =>
-//       {'id': id,
-//       'name': name,
-//       'email': email,
-//       'password': password};
-// }

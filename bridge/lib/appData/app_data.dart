@@ -1,10 +1,40 @@
 import 'package:bridge/models/paths.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/courses.dart';
 
 class AppData extends ChangeNotifier {
+  //-------------------------------  GOOGLE SIGNE IN   -------------------------------
+  final googlSignIn = GoogleSignIn();
+  GoogleSignInAccount? _user;
+  GoogleSignInAccount get user => _user!;
+
+  Future googleLogin() async {
+    try {
+      final googleUser = await googlSignIn.signIn();
+      if (googleUser == null) return;
+      _user = googleUser;
+
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+    } catch (e) {
+      print(e.toString());
+    }
+    notifyListeners();
+  }
+
+  Future logout() async {
+    await googlSignIn.disconnect();
+    FirebaseAuth.instance.signOut();
+  }
+
   //----------------Mange Learn-------------------------------------------------
   List<Paths> learnPath = [];
 
@@ -48,7 +78,7 @@ class AppData extends ChangeNotifier {
 
       //remove the path from list of learn
       final learnIndex = learnPath.indexWhere((path) => path.id == id);
-     
+
       if (learnIndex >= 0) {
         learnPath.removeAt(learnIndex);
       }
@@ -61,109 +91,128 @@ class AppData extends ChangeNotifier {
   }
 //-------------------------------------------------
 
-
-
 //------------------DATABASE-----------------------------------------------
 
   List<Paths> Paths_data = [
     Paths(
-        id: 'p1',
-        name: 'Front-End devloper',
-        description:
-            "Front-end developer architects and develops websites and applications using web technologies (i.e., HTML, CSS, DOM, and JavaScript), which run on the Open Web",
-        sourceImage: 'images/frontend.jpg',
-        ),
-    Paths(
-        id: 'p2',
-        name: 'UX Researcher ',
-        description: 'eeeeeeeeeeeeeeeeeeeee',
-        sourceImage: 'images/UXResearcher.jpg',
-        ),
+      id: 'p1',
+      name: 'Front-End devloper',
+      description:
+          "Front-end developer architects and develops websites and applications using web technologies (i.e., HTML, CSS, DOM, and JavaScript), which run on the Open Web",
+      sourceImage: 'images/FrontEndDeveloper.png',
+    ),
     Paths(
         id: 'p3',
         name: 'Back-End devloper',
-        description: 'sourceImage',
-        sourceImage: 'images/frontend.jpg',
-        ),
+        description:
+            'Back-end Development refers to the server-side development. It focuses on databases, scripting, website architecture. It contains behind-the-scene activities that occur when performing any action on a website. It can be an account login or making a purchase from an online store. Code written by back-end developers helps browsers to communicate with database information',
+        sourceImage: 'images/backend.jpg'),
+    Paths(
+        id: 'p4',
+        name: 'Flutter Devloper',
+        description: 'description',
+        sourceImage: 'images/flutter-app-developer.jpg'),
+    Paths(
+        id: 'p5',
+        name: 'PC Software Engineering',
+        description:
+            'A typical software engineering certificate curriculum comprises core requirements, concentration courses, and electives. Core coursework typically seeks to familiarize students with software engineering fundamentals. ',
+        sourceImage: 'images/se.jpg'),
+    Paths(
+        id: 'p6',
+        name: 'PC in Cyber Security',
+        description:
+            'While most cybersecurity professionals have at least a bachelor’s degree in computer science, many companies prefer candidates who also have a certification to validate knowledge of best practices. There are hundreds of certifications available, from general to vendor-specific, entry-level to advanced. ',
+        sourceImage: 'images/cs.jpg')
   ];
   List<Course> Course_data = const [
     Course(
       id: 'c1',
       name: 'Html',
-      Psths: ['p1'],
+      Paths: ['p1'],
       description:
           'HTML stands for HyperText Markup Language. It is used on the frontend and gives the structure to the webpage which you can style using CSS and make interactive using JavaScript.',
       isDone: false,
+      pathId: '',
     ),
     Course(
       id: 'c2',
       name: 'CSS',
-      Psths: ['p1'],
+      Paths: ['p1'],
       description:
           'CSS or Cascading Style Sheets is the language used to style the frontend of any website. CSS is a cornerstone technology of the World Wide Web, alongside HTML and JavaScript',
       isDone: false,
+      pathId: '',
     ),
     Course(
       id: 'c3',
       name: 'JavaScript',
-      Psths: ['p1'],
+      Paths: ['p1'],
       description:
           'JavaScript allows you to add interactivity to your pages. Common examples that you may have seen on the websites are sliders, click interactions, popups and so on.',
       isDone: false,
-   
+      pathId: '',
     ),
   ];
 
-  List<SubCourse> subCourse_data = const [
+  List<SourceOfCourse> subCourse_data = const [
     // html = c1 , CSS=c2 , JavaScript= c3
-    SubCourse(
-      id: 's1',
-      Course: ['c1'],
-      name: 'w3schools',
-      link: 'https://www.w3schools.com/html/html_intro.asp',
-    ),
-    SubCourse(
-      id: 's2',
-      Course: ['c1'],
-      name: 'codecademy',
-      link: "https://www.codecademy.com/learn/learn-html",
-    ),
-    SubCourse(
-      id: 's3',
-      Course: ['c1'],
-      name: 'htmlreference',
-      link: "https://htmlreference.io/",
-    ),
-    SubCourse(
-      id: 's4',
-      Course: ['c2'],
-      name: 'w3schools',
-      link: 'https://www.w3schools.com/css/',
-    ),
-    SubCourse(
-      id: 's5',
-      Course: ['c2'],
-      name: 'codecademy',
-      link: 'https://www.codecademy.com/learn/learn-css',
-    ),
-    SubCourse(
-      id: 's6',
-      Course: ['c2'],
-      name: 'web.dev',
-      link: 'https://web.dev/learn/css/',
-    ),
-    SubCourse(
-      id: 's7',
-      Course: ['c3'],
-      name: 'w3schools',
-      link: 'https://www.w3schools.com/js/',
-    ),
-    SubCourse(
-      id: 's8',
-      Course: ['c3'],
-      name: 'javascript.info',
-      link: 'https://javascript.info/',
-    ),
+    SourceOfCourse(
+        id: 's1',
+        Course: ['c1'],
+        name: 'w3schools',
+        link: 'https://www.w3schools.com/html/html_intro.asp',
+        courseId: 'c1',
+        pathId: 'p3'),
+    SourceOfCourse(
+        id: 's2',
+        Course: ['c1'],
+        name: 'codecademy',
+        link: "https://www.codecademy.com/learn/learn-html",
+        courseId: 'c1',
+        pathId: 'p3'),
+    SourceOfCourse(
+        id: 's3',
+        Course: ['c1'],
+        name: 'htmlreference',
+        link: "https://htmlreference.io/",
+        courseId: 'c1',
+        pathId: 'p3'),
+    SourceOfCourse(
+        id: 's4',
+        Course: ['c2'],
+        name: 'w3schools',
+        link: 'https://www.w3schools.com/css/',
+        courseId: 'c2',
+        pathId: 'p1'),
+    SourceOfCourse(
+        id: 's5',
+        Course: ['c2'],
+        name: 'codecademy',
+        link: 'https://www.codecademy.com/learn/learn-css',
+        courseId: 'c2',
+        pathId: 'p1'),
+    SourceOfCourse(
+        id: 's6',
+        Course: ['c2'],
+        name: 'web.dev',
+        link: 'https://web.dev/learn/css/',
+        courseId: 'c2',
+        pathId: 'p1'),
+    SourceOfCourse(
+        id: 's7',
+        Course: ['c3'],
+        name: 'w3schools',
+        link: 'https://www.w3schools.com/js/',
+        courseId: 'c3',
+        pathId: 'p3'),
+    SourceOfCourse(
+        id: 's8',
+        Course: ['c3'],
+        name: 'javascript.info',
+        link: 'https://javascript.info/',
+        courseId: 'c3',
+        pathId: 'p3'),
   ];
 }
 

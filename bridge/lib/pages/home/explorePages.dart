@@ -1,39 +1,85 @@
 import 'package:bridge/widgets/cards/cardOfPath.dart';
+import 'package:bridge/widgets/colors/colors.dart';
 import 'package:flutter/material.dart';
-import '../../widgets/Colors/colors.dart';
-import 'package:bridge/appData/app_data.dart';
-import 'package:provider/provider.dart';
+import '../../models/paths.dart';
+import '../../services/pathServices.dart';
 
 class ExplorePage extends StatelessWidget {
-  const ExplorePage();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: ColorSelect.Color1,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          const CustomHeader(text: 'What do you wnat to learn?'),
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+              ),
+              child: StreamBuilder<List<Paths>>(
+                stream: readPaths(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text('has errore');
+                  } else if (snapshot.hasData) {
+                    final pathsData = snapshot.data!;
+                    return ListView(
+                      children: pathsData.map(buildPaths).toList(),
+                    );
+                  } else {
+                    return const Center(
+                        child: const CircularProgressIndicator());
+                  }
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+// ---------------------------------------------------------------------- 
+class CustomHeader extends StatelessWidget {
+  final String text;
+  const CustomHeader({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      //backgroundColor: Color.fromARGB(255, 46, 47, 48),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'What do you wnat learn today?',
-          style:
-              TextStyle(color: ColorBox.Color30, fontWeight: FontWeight.bold,fontStyle: FontStyle.italic, fontSize: 24),
-        ),
+    return Container(
+      padding: const EdgeInsets.only(
+          top: 80.0, left: 30.0, right: 30.0, bottom: 30.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 32.0,
+              fontWeight: FontWeight.w500,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ],
       ),
-      body: Center(
-          // add listof viwe with builder-----------------------------------------------------------------------
-          child: Consumer<AppData>(
-        builder: ((context, appData, child) {
-          return ListView(
-            children: appData.Paths_data.map((pathsData) => Card_Of_Path(
-                  name: pathsData.name,
-                  sourceImage: pathsData.sourceImage,
-                  description: pathsData.description,
-                  id: pathsData.id,
-                )).toList(),
-          );
-        }),
-      )),
-    ));
+    );
   }
 }
+
+Widget buildPaths(Paths user) => Card_Of_Path(
+      id: user.id,
+      name: user.name,
+      description: user.description,
+      sourceImage: user.sourceImage,
+    );

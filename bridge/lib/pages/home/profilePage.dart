@@ -1,8 +1,8 @@
 import 'package:bridge/models/users.dart';
 import 'package:bridge/services/user_Services.dart';
-import 'package:bridge/widgets/textField/textFeild.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../widgets/Buttons/achivebutton.dart';
 import '../../widgets/Colors/colors.dart';
 import 'package:provider/provider.dart';
 import '../../appData/app_data.dart';
@@ -18,43 +18,67 @@ class _ProfilePageState extends State<ProfilePage> {
   //firebase cuurent user--------------------------------------
   final user = FirebaseAuth.instance.currentUser!;
   final userData = readUsers();
-
   @override
   Widget build(BuildContext context) {
     if (Provider.of<AppData>(context).completePathes.isEmpty) {
-      return SafeArea(
-          child: Column(
-        children: [
-          headerOfProfile(),
-          Image(
-            image: AssetImage("images/hot-air-balloon.png"),
-            color: Colors.black12,
-          )
-        ],
-      ));
+      return Scaffold(
+          backgroundColor: ColorSelect.Color1,
+          body: ListView(
+            children: [
+              headerOfProfile(),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                child: const SizedBox(
+                  width: 400,
+                  child: Image(
+                    image: AssetImage("images/hot-air-balloon.png"),
+                    color: Colors.black12,
+                  ),
+                ),
+              )
+            ],
+          ));
     } //end if
     else {
-      return SafeArea(
-        child: Column(
+      return Scaffold(
+        backgroundColor: ColorSelect.Color1,
+        body: Column(
           children: [
             headerOfProfile(),
             Expanded(
-              child: Consumer<AppData>(
-                builder: (context, appData, child) {
-                  return ListView.builder(
-                    itemCount: appData.completePathes.length,
-                    itemBuilder: (ctx, index) {
-                      return Column(
-                        children: [
-                          AchiveBottom(
-                            name: appData.completePathes[index].name,
-                            pathID: appData.completePathes[index].id,
-                          )
-                        ],
-                      );
-                    },
-                  );
-                },
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft:  Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                child: Consumer<AppData>(
+                  builder: (context, appData, child) {
+                    return ListView.builder(
+                      itemCount: appData.completePathes.length,
+                      itemBuilder: (ctx, index) {
+                        return Column(
+                          children: [
+                            AchiveBottom(
+                              name: appData.completePathes[index].name,
+                              pathID: appData.completePathes[index].id,
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ],
@@ -71,22 +95,31 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(
+            height: 16,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Profile Page',
+                'Profile',
                 style: TextStyle(
-                  color: ColorBox.Color50,
+                  color: ColorSelect.Color5,
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
               ),
               InkWell(
-                  onTap: () => FirebaseAuth.instance.signOut(),
+                  onTap: () {
+                    FirebaseAuth.instance.signOut();
+                    final provider =
+                        Provider.of<AppData>(context, listen: false);
+                    provider.logout();
+                  },
                   child: Icon(
                     Icons.logout_outlined,
                     size: 32,
+                    color: ColorSelect.Color5,
                   ))
             ],
           ),
@@ -97,27 +130,8 @@ class _ProfilePageState extends State<ProfilePage> {
             image: const AssetImage('images/user.png'),
             height: 200,
             width: 200,
-            color: ColorBox.Color50,
+            color: ColorSelect.Color5,
           ),
-          // FutureBuilder<UserModel?>(
-          //   future: readUser(),
-          //   builder: (context , snapshot) {
-          //    if(snapshot.hasError){
-          //     return Text('has errore');
-
-          //    }
-          //    else if (snapshot.hasData){
-          //       final usersingle= snapshot.data;
-
-          //       return usersingle==null
-          //       ? Center(child: Text('no user'),)
-          //       :buildUser(usersingle);
-          //     }else{
-          //       return Center(child: CircularProgressIndicator());
-          //     }
-          //   },
-
-          // ),
           const SizedBox(
             height: 8,
           ),
@@ -127,13 +141,16 @@ class _ProfilePageState extends State<ProfilePage> {
             style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: ColorBox.Color50),
+                color: ColorSelect.Color5),
           ),
-         // const Text("Signed In AS"),
+          // const Text("Signed In AS"),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.email, color: ColorBox.Color50,),
+              Icon(
+                Icons.email,
+                color: ColorSelect.Color5,
+              ),
               const SizedBox(
                 width: 4,
               ),
@@ -142,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: ColorBox.Color50),
+                    color: ColorSelect.Color5),
               ),
             ],
           ),
@@ -164,14 +181,13 @@ class _ProfilePageState extends State<ProfilePage> {
               Text(
                 "Achievement",
                 style: TextStyle(
-                  color: ColorSelect.Color1,
+                  color: ColorSelect.Color5,
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
               )
             ],
           ),
-          const Divider(),
         ],
       ),
     );
@@ -181,68 +197,3 @@ class _ProfilePageState extends State<ProfilePage> {
 Widget buildUser(UserModel user) => ListTile(
       title: Text(user.name),
     );
-
-class AchiveBottom extends StatelessWidget {
-  final String name;
-  final String pathID;
-  const AchiveBottom({
-    Key? key,
-    required this.name,
-    required this.pathID,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        width: 350,
-        height: 72,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: ColorBox.Color40,
-        ),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Image(
-                  image: AssetImage("images/achive.png"),
-                  height: 48,
-                  width: 44,
-                  // color: Color.fromARGB(255, 175, 153, 9),
-                ),
-                const SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  name,
-                  style: TextStyle(
-                      color: ColorSelect.Color5,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24),
-                ),
-                SizedBox(),
-                InkWell(
-                  onTap: (() {
-                    Provider.of<AppData>(context, listen: false)
-                        .mangeComoletePath(pathID);
-                  }),
-                  child: Icon(
-                    Provider.of<AppData>(context, listen: false).isComplete(
-                            pathID) // return true if "id" Is it in the favorites list
-                        ? Icons.cancel
-                        : Icons.star_border_outlined,
-                    color: ColorSelect.Color1,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

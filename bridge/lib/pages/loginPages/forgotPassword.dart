@@ -1,4 +1,4 @@
-import 'package:bridge/widgets/Buttons/button_widget.dart';
+import 'package:bridge/widgets/Buttons/Mybutton.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -63,7 +63,7 @@ class _ForGotPasswordPageState extends State<ForGotPasswordPage> {
                   SizedBox(
                     height: 8,
                   ),
-                  Mybutton1(
+                  Mybutton(
                     text: "Reset Password",
                     onPress: resetPassword,
                   )

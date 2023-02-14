@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../Colors/colors.dart';
 
-class Mybutton1 extends StatelessWidget {
+class Mybutton extends StatelessWidget {
   final String? text;
   final Function()? onPress;
-  const Mybutton1({
+  const Mybutton({
     Key? key,
     this.text,
     this.onPress,

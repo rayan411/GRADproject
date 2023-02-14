@@ -42,6 +42,8 @@ dependencies:
   flutterfire_ui: ^0.4.3+20
   provider: ^6.0.5
   email_validator: ^2.1.17
+  shared_preferences: ^2.0.17
+  google_sign_in: ^5.4.4
 
 dev_dependencies:
   flutter_test:
@@ -61,7 +63,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - images/frontend.jpg
+    - images/FrontEndDeveloper.png
     - images/UXResearcher.jpg
     - images/java.png
     - images/logoHr.png
@@ -71,6 +73,11 @@ flutter:
     - images/achievement.png
     - images/achive.png
     - images/cardAchiv.png
+    - images/flutter-app-developer.jpg
+    - images/google.png
+    - images/backend.jpg
+    - images/se.jpg
+    - images/cs.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

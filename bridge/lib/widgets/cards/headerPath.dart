@@ -20,7 +20,8 @@ class HeaderOfPath extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 256,
-      color: ColorBox.Color50,
+     color: ColorSelect.Color1,
+
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -36,7 +37,7 @@ class HeaderOfPath extends StatelessWidget {
                   child:Icon(
                     Icons.arrow_back,
                     color: Colors.white,
-                    size: 24,
+                    size: 32,
                   ),
                 )),
             const SizedBox(
@@ -75,23 +76,7 @@ class HeaderOfPath extends StatelessWidget {
             // const SizedBox(
             //   height: 48,
             // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  width: 100,
-                  height: 33,
-                  child: RaisedButton(
-                    color: const Color.fromARGB(255, 9, 149, 236),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    onPressed: onPress,
-                    child: const Text('Roadmap',
-                        style: TextStyle(color: Colors.white)),
-                  ),
-                ),
-              ],
-            ),
+           
           ],
         ),
       ),

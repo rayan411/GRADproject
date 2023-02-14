@@ -36,14 +36,12 @@ class _MyBottomBarState extends State<MyBottomBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     // appBar: AppBar(title: Text("UJ Bridge"),),
       body: _pages[_selectedIndex],
       //Bottom Navigation Bar ------------------------------------------------------------------------------------------
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              // Icons.lens_blur_sharp
               Icons.grid_view_sharp,
               ),
             label: 'Explore',
@@ -57,11 +55,11 @@ class _MyBottomBarState extends State<MyBottomBar> {
             label: 'Profile',
           ),
         ],
-        backgroundColor: ColorSelect.Color1,
-        selectedItemColor:ColorSelect.Color5,
+        backgroundColor: ColorSelect.Color5,
+        selectedItemColor:ColorSelect.Color1,
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,        
-        unselectedItemColor:  ColorSelect.Color3,
+        unselectedItemColor:  Color.fromARGB(119, 168, 168, 168),
 
       ),
     );

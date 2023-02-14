@@ -11,13 +11,13 @@ class MyWidget extends StatelessWidget {
   }
 }
 class Paths {
-  String id; 
+  final String id; 
   final String name;
   final String description;
   final String sourceImage;
 
   Paths({
-    this.id = '',
+    required final this.id ,
     required this.name,
     required this.description,
     required this.sourceImage,
@@ -28,6 +28,7 @@ class Paths {
         'name': name,
         'description': description,
         'sourceImage': sourceImage,
+        
       };
 
 

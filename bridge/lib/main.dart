@@ -4,10 +4,11 @@ import 'package:bridge/pages/home/bottomBar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'firebaseadd.dart';
 import 'models/testdata.dart';
 import 'pages/loginPages/auth.dart';
-import 'pages/paths/front-end/contents_Path.dart';
-import 'pages/paths/front-end/course_details.dart';
+import 'pages/paths/contents_Path.dart';
+import 'pages/paths/course_details.dart';
 import 'package:provider/provider.dart';
 
 Future main() async {
@@ -43,8 +44,8 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.blue,
           ),
           routes: {
-            '/': (ctx) => testat(),
-            Contents_Path_page.screanRoute: (ctx) => Contents_Path_page(),
+            '/': (ctx) => MainPageA(),
+            Content_Path_page.screanRoute: (ctx) => Content_Path_page(),
             Course_details.screenRoute: (context) => Course_details(),
           },
         ),
@@ -92,6 +93,7 @@ class MainPageA extends StatelessWidget {
           },
         ),
       );
+      
 }
 
 //---------------------------------------------------------------------------------------------
