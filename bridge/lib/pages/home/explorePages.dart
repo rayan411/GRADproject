@@ -12,7 +12,8 @@ class ExplorePage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const CustomHeader(text: 'What do you wnat to learn?'),
+          const CustomHeader(text: 'What do you want to learn?'),
+          //---------------------------------------------------------
           Expanded(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
