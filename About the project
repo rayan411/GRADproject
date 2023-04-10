@@ -1,0 +1,47 @@
+
+The Context  :
+● An application that helps graduate students create self-
+educational paths that keep pace with the labor market.
+
+● To bridge the gap between the requirements of the
+labor market and the competencies of graduate
+students.
+
+Aims:
+The main aim of this project is to develop an
+application that helps the UJ students to create self-
+educational paths, in order to support the University of
+Jeddah vision programs, especially the “empowering
+graduates’ program”, and to keep pace with the labor
+market. It also bridges the gap between the requirements
+of the labor market and the competencies of graduate
+students. As a first stage, the proposed application will
+cover most of the computer majors at the CCSE-UJ.
+
+
+
+Programming Language and Tools:
+This section represents the software and programming languages that
+we used throughout the implementation phase of UJ bridge:
+
+A-Visual Studio:
+is an integrated development environment from
+Microsoft, It is used to develop computer programs, as well as websites
+and web applications.
+
+B- Flutter:
+we used this framework to create apps on multiple platforms
+such as IOS , Android , ect.
+
+C-Dart:
+Dart offers ahead-of-time compilations, which automatically
+compiles code into a format that a native machine can easily read.
+
+D-Firebase:
+We used Firebase because it records logins and logouts in
+the authentication field, and the Firestore field for recording users data,
+path data, course data and source of course.
+
+E- Pattern used (MVC):
+(Model-View-Controller) is a pattern in software
+design used to implement user interfaces, data, and controlling logic
