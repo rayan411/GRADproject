@@ -33,3 +33,5 @@ Firebase
 
 Conclusion:
 In summary, "UJ Bridge" serves as an innovative bridge connecting students with their educational objectives in the field of computing, facilitating their educational journey, and enhancing their success in the technology sector.
+
+![bridge logo](https://github.com/rayan411/GRADproject/assets/107993133/5ea440b6-92e1-45fa-b382-022689bfedd9)
