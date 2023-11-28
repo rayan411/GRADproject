@@ -1,4 +1,5 @@
 # Project Name: UJ Bridge 
+![bridge logo](https://github.com/rayan411/GRADproject/assets/107993133/d8d88fae-b8bb-498d-a7fc-0da18728b89f)
 
 Project Description:
 
